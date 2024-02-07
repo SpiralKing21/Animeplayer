@@ -72,61 +72,6 @@ class CurrentChapter(
         chapter: Chapter,
         modifier: Modifier = Modifier,
     ) {
-        Box(
-            modifier = modifier
-                .clip(RoundedCornerShape(25))
-                .background(MaterialTheme.colorScheme.background.copy(alpha = 0.6F))
-                .padding(horizontal = MaterialTheme.padding.medium, vertical = MaterialTheme.padding.small),
-        ) {
-            AnimatedContent(
-                targetState = chapter,
-                transitionSpec = {
-                    if (targetState.time > initialState.time) {
-                        (slideInVertically { height -> height } + fadeIn())
-                            .togetherWith(slideOutVertically { height -> -height } + fadeOut())
-                    } else {
-                        (slideInVertically { height -> -height } + fadeIn())
-                            .togetherWith(slideOutVertically { height -> height } + fadeOut())
-                    }.using(
-                        SizeTransform(clip = false),
-                    )
-                },
-                label = "Chapter",
-            ) { currentChapter ->
-                Row {
-                    Icon(
-                        imageVector = ImageVector.vectorResource(R.drawable.ic_video_chapter_20dp),
-                        contentDescription = null,
-                        modifier = Modifier
-                            .padding(end = MaterialTheme.padding.small)
-                            .size(16.dp),
-                    )
-                    Text(
-                        text = Utils.prettyTime(currentChapter.time.toInt()),
-                        textAlign = TextAlign.Center,
-                        fontWeight = FontWeight.ExtraBold,
-                        maxLines = 1,
-                        overflow = TextOverflow.Clip,
-                        color = MaterialTheme.colorScheme.tertiary,
-                    )
-                    currentChapter.title?.let {
-                        Text(
-                            text = " • ",
-                            textAlign = TextAlign.Center,
-                            maxLines = 1,
-                            overflow = TextOverflow.Clip,
-                        )
-                        Text(
-                            text = it,
-                            textAlign = TextAlign.Center,
-                            maxLines = 1,
-                            overflow = TextOverflow.Ellipsis,
-                            fontWeight = FontWeight.Bold,
-                            color = MaterialTheme.colorScheme.onBackground,
-                        )
-                    }
-                }
-            }
-        }
+
     }
 }
